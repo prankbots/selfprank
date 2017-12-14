@@ -14,7 +14,7 @@ from googletrans import Translator
 #JANGAN LUPA =>  sudo pip install bs4 => sudo pip install BeautifulSoup => sudo pip install urllib
 
 cl = PUY.LINE()
-cl.login(qr=True)
+cl.login(token="EnPdZfR01tieO491bBm3.Ri4/RX6YPvDWVXddSJv8mW.RAg5XT6OvcSY0FtcWMC1kZbeaGu4DhsO0U7Rg8te60M=")
 cl.loginResult()
 
 print "\n[CIE BERHASIL LOGIN]"
@@ -24,10 +24,11 @@ sys.setdefaultencoding('utf-8')
 helpmsg ="""╠═════════════════
 ╠-> google (text)
 ╠-> playstore (text)
-╠-> instagram (username)
+╠-> Profileig (username)
 ╠-> wikipedia (text)
 ╠-> idline (text)
-╠-> time
+╠-> ytsearch  (text)
+╠-> Time
 ╠-> image (text)
 ╠-> runtime
 ╠-> Restart
@@ -139,6 +140,7 @@ helptranslate ="""
 KAC=[cl]
 mid = cl.getProfile().mid
 Bots=[mid]
+admin=["uac8e3eaf1eb2a55770bf10c3b2357c33"]
 
 wait = {
     "likeOn":False,
@@ -252,17 +254,60 @@ def _images_get_next_item(s):
         content_raw = str(s[start_content+6:end_content-1])
         return content_raw, end_content
 
+def sendAudio(self, to, path):
+        objectId = self.sendMessage(to=to, text=None, contentType = 3).id
+        files = {
+            'file': open(path, 'rb'),
+        }
+        params = {
+            'name': 'media',
+            'oid': objectId,
+            'size': len(open(path, 'rb').read()),
+            'type': 'audio',
+            'ver': '1.0',
+        }
+        data = {
+            'params': json.dumps(params)
+        }
+        r = self.server.postContent(self.server.LINE_OBS_DOMAIN + '/talk/m/upload.nhn', data=data, files=files)
+        if r.status_code != 201:
+            raise Exception('Upload audio failure.')
+        return True
+            
+def sendAudio(self, to_, path):
+        M = Message(to=to_,contentType = 3)
+        M.contentMetadata = None
+        M.contentPreview = None
+        M_id = self.Talk.client.sendMessage(0,M).id
+        files = {
+            'file': open(path, 'rb'),
+        }
+        params = {
+            'name': 'media',
+            'oid': M_id,
+            'size': len(open(path, 'rb').read()),
+            'type': 'audio',
+            'ver': '1.0',
+        }
+        data = {
+            'params': json.dumps(params)
+        }
+        r = self.post_content('https://os.line.naver.jp/talk/m/upload.nhn', data=data, files=files)
+        if r.status_code != 201:
+            raise Exception('Upload image failure.')
+        return True
+        
 def sendAudioWithURL(self, to_, url):
-      path = '%s/pythonLine-%i.data' % (tempfile.gettempdir(), randint(0, 9))
-      r = requests.get(url, stream=True)
-      if r.status_code == 200:
-         with open(path, 'w') as f:
-            shutil.copyfileobj(r.raw, f)
-      else:
-         raise Exception('Download audio failure.')
-      try:
-         self.sendAudio(to_, path)
-      except Exception as e:
+        path = 'pythonLiness.data'
+        r = requests.get(url, stream=True)
+        if r.status_code == 200:
+            with open(path, 'w') as f:
+                shutil.copyfileobj(r.raw, f)
+        else:
+            raise Exception('Download Audio failure.')
+        try:
+            self.sendAudio(to_, path)
+        except Exception as e:
             raise e
             
 #Getting all links with the help of '_images_get_next_image'
@@ -434,7 +479,7 @@ def bot(op):
                  if wait["detectMention"] == True:
                      contact = cl.getContact(msg.from_)
                      cName = contact.displayName
-                     balas = ["Don't Tag Me! iam Bussy!, ",cName + "Ada perlu naon, ?",cName + " pc aja klo urgent! sedang sibuk,", "kenapa, ", cName + " kangen?","kangen bilang gausa tag tag, " + cName, "knp?, " + cName, "apasi?, " + cName + "?", "pulang gih, " + cName + "?","aya naon, ?" + cName + "Tersummon -_-"]
+                     balas = ["",cName + " what ?, ", cName + " Kenapa? pc dia aja klo penting,  " + cName + "?", "Ada Perlu apa? jgn tag doang, " + cName + "?","Hmm?, ", "Jgn tag tag ah, "]
                      ret_ = "." + random.choice(balas)
                      name = re.findall(r'@(\w+)', msg.text)
                      mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -448,8 +493,8 @@ def bot(op):
                  if wait["kickMention"] == True:
                      contact = cl.getContact(msg.from_)
                      cName = contact.displayName
-                     balas = ["Dont Tag Me!! Im Busy, ",cName + " Ngapain Ngetag?, ",cName + " Nggak Usah Tag-Tag! Kalo Penting Langsung Pc Aja, ", "-_-, ","Puy lagi off, ", cName + " Kenapa Tag saya?, ","SPAM PC aja, " + cName, "Jangan Suka Tag gua, " + cName, "Kamu siapa, " + cName + "?", "Ada Perlu apa, " + cName + "?","Tag doang tidak perlu., ", "Tersummon -_-, "]
-                     ret_ = "[Auto Respond] " + random.choice(balas)
+                     balas = ["",cName + " Ngapain Ngetag?, ", cName + " Kenapa Tag saya?,  " + cName + "?", "Ada Perlu apa, " + cName + "?","Tag doang tidak perlu., ", "Tersummon -_-, "]
+                     ret_ = "**Auto Respond** " + random.choice(balas)
                      name = re.findall(r'@(\w+)', msg.text)
                      mention = ast.literal_eval(msg.contentMetadata['MENTION'])
                      mentionees = mention['MENTIONEES']
@@ -616,11 +661,20 @@ def bot(op):
                     cl.sendText(msg.to,helptranslate)
                 else:
                     cl.sendText(msg.to,helptranslate)
-            elif msg.text in ["Sp","Speed","speed"]:
-                start = time.time()
-                cl.sendText(msg.to, "「Come Here」")
-                elapsed_time = time.time() - start
-                cl.sendText(msg.to, "%sseconds" % (elapsed_time))
+            #elif msg.text in ["Sp","Speed","speed"]:
+            #    start = time.time()
+            #    cl.sendText(msg.to, "「Come Here」")
+            #    elapsed_time = time.time() - start
+            #    cl.sendText(msg.to, "%sseconds" % (elapsed_time))
+                
+            elif msg.text == ".Speed":
+                    cl.sendText(msg.to,"「Come Here」")
+                    start = time.time()
+                    for i in range(3000):
+                        1+1
+                    elsp = time.time() - start
+                    cl.sendText(msg.to,"%s/Detikี" % (elsp))    
+                
             elif msg.text.lower() == 'crash':
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': "u1f41296217e740650e0448b96851a3e2',"}
@@ -880,6 +934,7 @@ def bot(op):
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': "ub14f769cdf42d8c8a618ebe91ac2c8c7"}
                 cl.sendMessage(msg)
+                kk.sendMessage(msg)
             elif msg.text.lower() == 'autoadd on':
                 if wait["autoAdd"] == True:
                     if wait["lang"] == "JP":
@@ -1278,16 +1333,15 @@ def bot(op):
               if msg.toType == 2:
                   cl.sendText(msg.to,datetime.today().strftime('%H:%M:%S'))
 #==============================================================================#
-            elif "Cleanse" in msg.text:
+            elif "Clearall" in msg.text:
 				if msg.toType == 2:
 					if msg.toType == 2:
 						print "ok"
-						_name = msg.text.replace("Cleanse","")
+						_name = msg.text.replace("Clearall","")
 						gs = cl.getGroup(msg.to)
 						gs = cl.getGroup(msg.to)
 						gs = cl.getGroup(msg.to)
-						cl.sendText(msg.to,"Just some casual cleansing ô")
-						cl.sendText(msg.to,"Group cleansed.")
+						cl.sendText(msg.to,"Group Cleared.")
 						targets = []
 						for g in gs.members:
 							if _name in g.displayName:
@@ -1474,7 +1528,7 @@ def bot(op):
                 Mids = [contact.mid for contact in thisgroup[0].members]
                 mi_d = Mids[:33]
                 cl.findAndAddContactsByMids(mi_d)
-                cl.sendText(msg.to,"Success Add all")
+                cl.sendText(msg.to,"Berhasil add semua")
                     
             elif "@bye" in msg.text:
                 if msg.toType == 2:
@@ -2251,8 +2305,8 @@ def bot(op):
                     except:
                         cl.sendText(msg.to, "Could not find it")
             
-            elif "Youtubesearch " in msg.text:
-                    query = msg.text.replace("Youtube ","")
+            elif "ytsearch " in msg.text:
+                    query = msg.text.replace("ytsearch ","")
                     with requests.session() as s:
                         s.headers['user-agent'] = 'Mozilla/5.0'
                         url = 'http://www.youtube.com/results'
@@ -2346,9 +2400,8 @@ def bot(op):
                         profileIG = data['user']['profile_pic_url_hd']
                         privateIG = str(data['user']['is_private'])
                         followIG = str(data['user']['follows']['count'])
-                        link = "Link: " + "https://www.instagram.com/" + instagram
-                        text = "Name : "+namaIG+"\nUsername : "+usernameIG+"\nBiography : "+bioIG+"\nFollower : "+followerIG+"\nFollowing : "+followIG+"\nPost : "+mediaIG+"\nVerified : "+verifIG+"\nPrivate : "+privateIG+"" "\n" + link
-                        cl.sendImageWithURL(msg.to, profileIG)
+                        link = "LinkNya: " + "https://www.instagram.com/" + instagram
+                        text = "Name : "+namaIG+"\nUsername : "+usernameIG+"\nBiography : "+bioIG+"\nFollowerNya : "+followerIG+"\nFollowingNya : "+followIG+"\nPost : "+mediaIG+"\nVerified : "+verifIG+"\nPrivate : "+privateIG+"" "\n" + link
                         cl.sendText(msg.to, str(text))
                     except Exception as e:
                         cl.sendText(msg.to, str(e))
@@ -2429,6 +2482,58 @@ def bot(op):
                 msg.contentType = 13
                 msg.contentMetadata = {'mid': "ub14f769cdf42d8c8a618ebe91ac2c8c7"}
                 cl.sendMessage(msg)
+
+            #elif msg.text in ["puy"]:
+		  #cl.sendText(msg.to,"Puy here")
+          #      cl.sendText(msg.to,"Puy here")
+          #      kk.sendText(msg.to,"Puy here")
+          #      cl.sendText(msg.to,"Hadir semua puy!")
+
+            elif msg.text in ["Masuk","...","Join kuy"]: #Panggil Semua Bot
+              if msg.from_ in admin:
+                G = cl.getGroup(msg.to)
+                ginfo = cl.getGroup(msg.to)
+                G.preventJoinByTicket = False
+                cl.updateGroup(G)
+                invsend = 0
+                Ticket = cl.reissueGroupTicket(msg.to)
+                ki.acceptGroupInvitationByTicket(msg.to,Ticket)
+                time.sleep(0.01)
+                kk.acceptGroupInvitationByTicket(msg.to,Ticket)
+                time.sleep(0.01)
+                G = cl.getGroup(msg.to)
+                ginfo = cl.getGroup(msg.to)
+                G.preventJoinByTicket = True
+                cl.updateGroup(G)
+                print "Semua Sudah Lengkap"
+
+            elif msg.text in ["Puy join"]:
+              if msg.from_ in admin:
+                  x = ki.getGroup(msg.to)
+                  x.preventJoinByTicket = False
+                  ki.updateGroup(x)
+                  invsend = 0
+                  Ti = ki.reissueGroupTicket(msg.to)
+                  cl.acceptGroupInvitationByTicket(msg.to,Ti)
+                  G = ki.getGroup(msg.to)
+                  G.preventJoinByTicket = True
+                  ki.updateGroup(G)
+                  Ticket = ki.reissueGroupTicket(msg.to)
+
+            elif "Clone " in msg.text:
+                copy0 = msg.text.replace("Clone ","")
+                copy1 = copy0.lstrip()
+                copy2 = copy1.replace("@","")
+                copy3 = copy2.rstrip()
+                _name = copy3
+		group = cl.getGroup(msg.to)
+		for contact in group.members:
+		    cname = cl.getContact(contact.mid).displayName
+		    if cname == _name:
+			cl.CloneContactProfile(contact.mid)
+			cl.sendText(msg.to, "Berhasil puy")
+		    else:
+			pass
 
             elif "friendpp: " in msg.text:
               if msg.from_ in admin:
@@ -2645,7 +2750,7 @@ def bot(op):
                         cl.sendMessage(msg)
                         print "Spamtag Berhasil."
 
-            elif "Spamcontact @" in msg.text:
+            elif "/Spamcontact @" in msg.text:
                 _name = msg.text.replace("Spamcontact @","")
                 _nametarget = _name.rstrip(' ')
                 gs = cl.getGroup(msg.to)
@@ -2653,6 +2758,7 @@ def bot(op):
                     if _nametarget == g.displayName:
                        msg.contentType = 13
                        msg.contentMetadata = {'mid': "ua7fb5762d5066629323d113e1266e8ca',"}
+                       cl.sendText(g.mid,"Spam")
                        cl.sendMessage(msg)
                        cl.sendMessage(msg)
                        cl.sendMessage(msg)
@@ -2779,7 +2885,7 @@ def bot(op):
                     if _nametarget == g.displayName:
                         targets.append(g.mid)
                 if targets == []:
-                    ki.sendText(msg.to,"Contact not found")
+                    cl.sendText(msg.to,"Contact not found")
                 else:
                     for target in targets:
                         try:

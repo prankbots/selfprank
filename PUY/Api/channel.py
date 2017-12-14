@@ -18,8 +18,8 @@ class Channel:
     http_query_path = "/S4"
     channel_query_path = "/CH4"
 
-    UA = "Line/6.0.0 iPad4,1 9.0.2"
-    LA = "IOSIPAD\t7.14.0\tiPhone OS\t10.12.0"
+    UA = "Line/7.4.7 iPad3,6 7.0.2"
+    LA = "IOSIPAD\t7.4.7\tiPhone OS\t7.0.2"
 
     authToken = None
     mid = None
