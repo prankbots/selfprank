@@ -34,8 +34,8 @@ helpmsg ="""╠═════════════════
 ╠-> Restart
 ╠-> lirik (text)
 ╠-> Mention
-╠-> Lurk on/off
-╠-> Lurkers
+╠-> setpoint on/off
+╠-> viewlastseen
 ╠-> protect on/off
 ╠-> qr on/off
 ╠-> invite on/off
@@ -44,7 +44,7 @@ helpmsg ="""╠═════════════════
 ╠-> Read on/off
 ╠-> Getinfo @
 ╠-> Getcontact @
-╠-> ulti @
+╠-> Ulti @
 ╠-> speed
 ╠-> Friendlist
 ╠-> id@en
