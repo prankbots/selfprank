@@ -11,7 +11,7 @@ from io import StringIO
 from threading import Thread
 #from gtts import gTTS
 from googletrans import Translator
-#JANGAN LUPA =>  sudo pip install bs4 => sudo pip install BeautifulSoup => sudo pip install urllib
+#JANGAN LUPA =>  sudo pip install bs4 => sudo pip install BeautifulSoup => sudo pip install urllib => sudo pip install requests => sudo pip install gTTS
 
 cl = PUY.LINE()
 cl.login(qr=True)
