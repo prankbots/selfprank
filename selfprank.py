@@ -159,7 +159,7 @@ wait = {
     'leaveRoom':True,
     'timeline':False,
     'autoAdd':True,
-    'message':"""Thx for add""",
+    'message':"""TERIMAKASIH KAKAK SUDAH TAMBAHKAN SAYA SEBAGAI TEMAN""",
     "lang":"JP",
     "comment":"",
     "commentOn":False,
