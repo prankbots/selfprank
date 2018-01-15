@@ -17,11 +17,13 @@ cl = PUY.LINE()
 cl.login(qr=True)
 cl.loginResult()
 
-print "\n[CIE BERHASIL LOGIN]"
+print "\n[PRANK LOGIN SELESAI]"
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-helpmsg ="""╠═════════════════
+helpmsg ="""╔═════════════
+(╣••℘̰̰̈́ґ̰̰̈́∂̰̰̈́η̰̰̈́к̰̰̈́ ̰в̰̰̈́❍̰̰̈́т̰̰̈́ѕ̰̰̈́••╣)
+║═════════════
 ╠-> google (text)
 ╠-> playstore (text)
 ╠-> Profileig (username)
