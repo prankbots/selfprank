@@ -1,4 +1,4 @@
-# PUY BOT
+# SELFBOT
 
-Supported By ObelixBOT
+### Supported By prankbots
 
