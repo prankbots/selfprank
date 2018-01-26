@@ -3,7 +3,8 @@
 # SELFBOT
 V2.1 editor_::
 Prankbots
-# BOT AUTO COMMAND TIMELINE
+# PRANKBOTS
+[Prankbots](prankbot.jpg)
 V2.1 last update::
 15/01/2018
 # CONTACT OFFICIAL
@@ -15,14 +16,14 @@ V2.1 last update::
 [ADD_LINE](http://line.me/ti/p/~adiputra.95)
 
 # TUTORIAL YOUTUBE
-[LIHAT_DISINI](https://youtu.be/H8cUWlBJG3c)
+[LIHAT_DISINI](https://youtu.be/j9VqQBZCcec)
 
 [@SUBCRABE](https://www.youtube.com/channel/UCycBrqSWEHdk-slnhUmGWiQ)
 
 
 THANKS TO.
 
-Allah swt.
+```Allah swt.
 Prankbots
 Black of gamer
-Dan kawan"..
+Dan kawan-Kawan```
