@@ -1,4 +1,0 @@
-# SELFBOT
-
-### Supported By prankbots
-
